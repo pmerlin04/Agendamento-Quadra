@@ -1,0 +1,43 @@
+//pega os valores da data que o usuario escolhe e os horários disponíveis
+const inputData = document.getElementById('input-data');
+const caixaHorarios = document.getElementById('caixa-horarios');
+
+
+inputData.addEventListener('change', (evento)=>{
+    //pega o valor do inputData
+    const dataEscolhida = evento.target.value;
+
+    if(dataEscolhida){
+        buscarHorariosLivres(dataEscolhida);
+    }
+});
+
+//Busca as horas no banco
+function buscarHorariosLivres(data){
+    const horariosAPI = ["08:00", "09:00", "11:00", "13:00"];
+
+    caixaHorarios.innerHTML = "";
+
+    if(horariosAPI.length === 0){
+        caixaHorarios.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
+        return;
+    }
+
+    //o loop para desenhar os botões dos horários
+    horariosAPI.forEach(hora =>{
+        const botao = document.createElement('button');
+        botao.innerText = hora; //escreve a hora, ex:08:00
+        botao.className = 'btn-horario';
+
+        botao.onclick = () => {
+            alert(`Você escolheu o dia ${data} às ${hora}!`);
+        };
+
+        caixaHorarios.appendChild(botao);
+    });
+    
+}
+
+
+
+

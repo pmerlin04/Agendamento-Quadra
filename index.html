@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo-index.css">
+</head>
+<body>
+     <header class="cabecalho">
+       <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
+        <nav class="cabecalho-menu">
+            <button onclick="meusChamados()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+            <button onclick="login()" id="entrar" class="cabecalho-menu-item">Entrar</button>
+        </nav>
+
+        <!--
+        <div class="burguer">
+            <div class="linha1"></div>
+            <div class="linha2"></div>
+            <div class="linha3"></div>
+        </div>-->
+    </header>
+
+    <main class="corpo">
+
+        <section id="principal" style="display: none;">
+
+            <div class="container">
+                <div class="apresentacao">
+                    <div class="titulo">
+                        <h1>Escolha um horário e marque o seu futebol com os amigos.</h1>
+                        <button type="button" id="btn-agendar">Agendar quadra</button>
+                    </div>
+                </div>
+                <div class="ilustracao">
+                    <img src="img/quadra.jpeg" alt="quadras" id="img-quadra">
+                </div>
+            </div>
+
+        </section><!--final section principal-->
+
+
+        <section id="agendamento" style="display: block;">
+            <div id="calendario">
+                <h2>1. Escolha o dia do seu jogo</h2>
+                <!-- O campo de calendário padrão do HTML -->
+                <input type="date" id="input-data">
+
+                <h2>2. Horários Livres</h2>
+                <!-- Uma caixa vazia onde o JS vai colocar os botões -->
+                <div id="caixa-horarios">
+                    <p>Selecione uma data acima para ver os horários.</p>
+                </div>
+            </div>
+        </section><!--final section agendamento-->
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
