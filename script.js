@@ -1,3 +1,7 @@
+//SECTIONS DA PÁGINA
+const mostrarPrincipal = document.getElementById('principal');
+const mostrarCalendario = document.getElementById('agendamento');
+
 //pega os valores da data que o usuario escolhe e os horários disponíveis
 const inputData = document.getElementById('input-data');
 const caixaHorarios = document.getElementById('caixa-horarios');
@@ -12,9 +16,25 @@ inputData.addEventListener('change', (evento)=>{
     }
 });
 
+const API_URL_HORARIOS_DISPONIVEIS = 'https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data=2026-09-30&id=1';
+
 //Busca as horas no banco
-function buscarHorariosLivres(data){
-    const horariosAPI = ["08:00", "09:00", "11:00", "13:00"];
+async function buscarHorariosLivres(data){
+    try{
+
+    const horariosAPI = await fetch("https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data=}"+data+"&id=1", {
+        method: 'GET',
+        //body: JSON.stringify()
+    })
+
+    if(!horariosAPI.ok){
+        throw new Error(`Erro ao mostrar horarios`);
+    }
+    }catch(error){
+        console.log("Erro na requisição: ", error);
+    }
+
+    
 
     caixaHorarios.innerHTML = "";
 
