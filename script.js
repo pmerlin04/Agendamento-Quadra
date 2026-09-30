@@ -45,9 +45,12 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
 
         //o loop para desenhar os botões dos horários
         horariosLivres.forEach(hora =>{
-            formatarHorario(hora);
+
+            const horaFormatada = formatarHorario(hora); 
+
             const botao = document.createElement('button');
-            botao.innerText = hora; //escreve a hora, ex:08:00
+
+            botao.innerText = horaFormatada; //escreve a hora, ex:08:00
             botao.className = 'btn-horario';
 
             botao.onclick = () => {
@@ -84,7 +87,7 @@ function formatarHorario(dataIso){
     });
 
 
-    return `${horaInicioStr} às ${horaFimStr};`
+    return `${horaInicioStr} às ${horaFimStr}`;
 }
 
 
