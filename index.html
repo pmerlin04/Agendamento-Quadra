@@ -10,6 +10,7 @@
      <header class="cabecalho">
        <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
         <nav class="cabecalho-menu">
+            <button class="cabecalho-menu-item">Agendamentos pendentes</button>
             <button onclick="" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
             <button onclick="login()" id="entrar" class="cabecalho-menu-item">Entrar</button>
         </nav>
@@ -54,6 +55,19 @@
                 </div>
             </div>
         </section><!--final section agendamento-->
+
+        <section id="agendamentosPedentes">
+            <div id="calendarioPendente">
+                <h1>Escolha o dia do agendamento</h1>
+                <input type="date" id="input-data-pendente">
+
+                <h2>Horários Pendentes para Aprovação</h2>
+
+                <div id="caixa-horarios-pendentes">
+                    <p>Selecione uma data acima para ver os horários.</p>
+                </div>
+            </div>
+        </section>
 
     </main>
     <script src="script.js"></script>
