@@ -1,9 +1,3 @@
-function obterHeaders(){
-    return{
-        'Content-Type': 'application/json'
-    }
-}
-
 //SECTIONS DA PÁGINA
 const mostrarPrincipal = document.getElementById('principal');
 const mostrarCalendario = document.getElementById('agendamento');
@@ -12,10 +6,11 @@ const mostrarCalendario = document.getElementById('agendamento');
 const inputData = document.getElementById('input-data');
 const caixaHorarios = document.getElementById('caixa-horarios');
 
+//pega os valores da data com horários pendentes
 const inputDataPendente = document.getElementById('input-data-pendente');
 const caixaHorariosPendentes = document.getElementById('caixa-horarios-pendentes');
 
-
+//function pra escolher a data disponível
 inputData.addEventListener('change', (evento)=>{
     //pega o valor do inputData
     const dataEscolhida = evento.target.value;
@@ -24,6 +19,17 @@ inputData.addEventListener('change', (evento)=>{
         buscarHorariosLivres(dataEscolhida);
     }
 });
+
+//function pra visualizar a data com os horários pendentes
+inputDataPendente.addEventListener('change', (evento)=>{
+    //pega o valor do inputData
+    const dataEscolhida = evento.target.value;
+
+    if(dataEscolhida){
+        buscarHorariosPendentes(dataEscolhida);
+    }
+});
+
 
 //Busca as horas no banco
 async function buscarHorariosLivres(data){
@@ -78,15 +84,13 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
 
 
 //Busca as horas no banco
-async function buscarHorariosPendentes(data){
-const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/HorariosPendentes?data=${data}&id=1`;
+async function buscarHorariosPendentes(dataPendente){
+const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/HorariosPendentes?data=${dataPendente}&id=1`;
 
     try{
 
         const response = await fetch(API_URL_HORARIOS_PENDENTES, {
             method: 'GET',
-            //'Content-Type': 'application/json'
-            //body: JSON.stringify()
         });
 
         if(!response.ok){
@@ -98,9 +102,9 @@ const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/Hora
         caixaHorariosPendentes.innerHTML = "";
 
         if(horariosPendentes.length === 0){
-            console.log(data);
+            console.log(dataPendente);
             console.log(horariosPendentes);
-            caixaHorarios.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
+            caixaHorariosPendentes.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
             return;
         }
 
@@ -119,7 +123,7 @@ const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/Hora
                 //reservarHorario(hora);
             };
 
-            caixaHorarios.appendChild(botao);
+            caixaHorariosPendentes.appendChild(botao);
         });
 
     }catch(error){
@@ -131,8 +135,6 @@ const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/Hora
 
 async function reservarHorario(dataReserva){
     const URL_API_RESERVAR_HORARIO = `https://localhost:7138/api/Agendamentos/ReservarAgendamento?data=${dataReserva}&id=1`;
-
-    const valueDataReserva = inputData.value;
 
     const novoAgendamento = {
         emailUsuario: "pedromerlin2004@gmail.com",
