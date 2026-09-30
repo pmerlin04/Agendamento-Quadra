@@ -23,7 +23,7 @@ async function buscarHorariosLivres(data){
     try{
 
     const response = await fetch(API_URL_HORARIOS_DISPONIVEIS, {
-        method: 'GET',
+        method: 'GET'
         //body: JSON.stringify()
     })
 
