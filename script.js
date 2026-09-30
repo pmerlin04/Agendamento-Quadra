@@ -22,7 +22,7 @@ const API_URL_HORARIOS_DISPONIVEIS = 'https://localhost:7138/api/Agendamentos/Ho
 async function buscarHorariosLivres(data){
     try{
 
-    const horariosAPI = await fetch("https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data=}"+data+"&id=1", {
+    const horariosAPI = await fetch("https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data="+data+"&id=1", {
         method: 'GET',
         //body: JSON.stringify()
     })
@@ -34,7 +34,7 @@ async function buscarHorariosLivres(data){
         console.log("Erro na requisição: ", error);
     }
 
-    
+
 
     caixaHorarios.innerHTML = "";
 
