@@ -16,7 +16,7 @@ inputData.addEventListener('change', (evento)=>{
     }
 });
 
-const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data=${data}&id=1`;
+const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/HorariosDisponíveis?data=${inputData}&id=1`;
 
 //Busca as horas no banco
 async function buscarHorariosLivres(data){
