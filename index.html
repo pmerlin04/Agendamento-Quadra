@@ -10,8 +10,9 @@
      <header class="cabecalho">
        <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
         <nav class="cabecalho-menu">
-            <button class="cabecalho-menu-item">Agendamentos pendentes</button>
-            <button onclick="" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+            <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
+            <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+            <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
             <button onclick="login()" id="entrar" class="cabecalho-menu-item">Entrar</button>
         </nav>
 
@@ -25,13 +26,14 @@
 
     <main class="corpo">
 
-        <section id="principal" style="display: none;">
+        <!--SECTION PARA FAZER AGENDAMENTO-->
+        <section id="principal" style="display: block;">
 
             <div class="container">
                 <div class="apresentacao">
                     <div class="titulo">
-                        <h1>Escolha um horário e marque o seu futebol com os amigos.</h1>
-                        <button type="button" id="btn-agendar">Agendar quadra</button>
+                        <h1>Escolha o horário e marque o seu futebol com os amigos.</h1>
+                        <button type="button" id="btn-agendar" onclick="mostrarAgendamento()">Agendar quadra</button>
                     </div>
                 </div>
                 <div class="ilustracao">
@@ -41,8 +43,8 @@
 
         </section><!--final section principal-->
 
-
-        <section id="agendamento" style="display: block;">
+        <!--SECTION PARA APROVAR AGENDAMENTOS-->
+        <section id="agendamento" style="display: none;">
             <div id="calendario">
                 <h2>1. Escolha o dia do seu jogo</h2>
                 <!-- O campo de calendário padrão do HTML -->
@@ -56,15 +58,30 @@
             </div>
         </section><!--final section agendamento-->
 
-        <section id="agendamentosPedentes">
-            <div id="calendarioPendente">
+        
+        <section id="agendamentosPedentes" style="display: none;">
+            <button type="button" id="btn-voltar" onclick="mostrarAgendamento()">Voltar</button>
+            <div id="titulo">
                 <h1>Escolha o dia do agendamento</h1>
                 <input type="date" id="input-data-pendente">
+                <button type="button" id="btn-buscar-pendente" onclick="buscarHorariosPendentes()">Buscar</button>
+            </div>
 
-                <h2>Horários Pendentes para Aprovação</h2>
+            <h2>Horários Pendentes para Aprovação</h2>
+                
+            <div id="container">
+                <div class="caixa-horarios-pendentes">
+                    <div class="comeco-horario-pendente">
+                        <p>hora.idAgendamento<p>
+                        <p>hora.emailUsuario</p>
+                        <p>hora.idQuadra</p>
+                    </div>
 
-                <div id="caixa-horarios-pendentes">
-                    <p>Selecione uma data acima para ver os horários.</p>
+                    <div class="meio-horario-pendente">
+                        <p>${hora.diaSemana}</p>
+                        <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
+                        <p>${hora.statusAgendamento}</p>
+                    </div>
                 </div>
             </div>
         </section>

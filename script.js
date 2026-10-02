@@ -1,16 +1,32 @@
 //SECTIONS DA PÁGINA
-const mostrarPrincipal = document.getElementById('principal');
-const mostrarCalendario = document.getElementById('agendamento');
+const sectionPrincipal = document.getElementById('principal');
+const sectionCalendario = document.getElementById('agendamento');
+const sectionAgendamentosPendentes = document.getElementById('agendamentosPedentes');
 
 //pega os valores da data que o usuario escolhe e os horários disponíveis
 const inputData = document.getElementById('input-data');
 const caixaHorarios = document.getElementById('caixa-horarios');
 
-//pega os valores da data com horários pendentes
+//pega os valores da data com horários pendentes para aprovação
 const inputDataPendente = document.getElementById('input-data-pendente');
 const caixaHorariosPendentes = document.getElementById('caixa-horarios-pendentes');
+const btnBuscar = document.getElementById('btn-buscar-pendente');
 
-//function pra escolher a data disponível
+function mostrarAgendamento(){
+    sectionPrincipal.style.display = 'none';
+    sectionCalendario.style.display = 'block';
+    sectionAgendamentosPendentes.style.display = 'none';
+}
+
+function mostrarAgendamentosPendentes(){
+    sectionCalendario.style.display = 'none';
+    sectionAgendamentosPendentes.style.display = 'block';
+    sectionPrincipal.style.display = 'none';
+}
+
+
+
+//function pra escolher a data com horarios disponiveis
 inputData.addEventListener('change', (evento)=>{
     //pega o valor do inputData
     const dataEscolhida = evento.target.value;
@@ -20,15 +36,8 @@ inputData.addEventListener('change', (evento)=>{
     }
 });
 
-//function pra visualizar a data com os horários pendentes
-inputDataPendente.addEventListener('change', (evento)=>{
-    //pega o valor do inputData
-    const dataEscolhida = evento.target.value;
 
-    if(dataEscolhida){
-        buscarHorariosPendentes(dataEscolhida);
-    }
-});
+
 
 
 //Busca as horas no banco
@@ -36,7 +45,6 @@ async function buscarHorariosLivres(data){
 const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/HorariosDisponiveis?data=${data}&id=1`;
 
     try{
-
         const response = await fetch(API_URL_HORARIOS_DISPONIVEIS, {
             method: 'GET',
             //'Content-Type': 'application/json'
@@ -69,7 +77,7 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
             botao.className = 'btn-horario';
 
             botao.onclick = () => {
-                alert(`Você escolheu o dia ${data} às ${hora}!`);
+                alert(`Você escolheu o dia ${data} às ${hora}`);
                 reservarHorario(hora);
             };
 
@@ -84,12 +92,17 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
 
 
 //Busca as horas no banco
-async function buscarHorariosPendentes(dataPendente){
-const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/HorariosPendentes?data=${dataPendente}&id=1`;
+async function buscarHorariosPendentes(){
+    const API_URL_FINDALL = 'https://localhost:7138/api/Agendamentos';
+    const lista = document.getElementById('container');
+    lista.innerHTML = '';
+    console.log(inputDataPendente.value)
+    
+
 
     try{
 
-        const response = await fetch(API_URL_HORARIOS_PENDENTES, {
+        const response = await fetch(API_URL_FINDALL, {
             method: 'GET',
         });
 
@@ -97,33 +110,64 @@ const API_URL_HORARIOS_PENDENTES = `https://localhost:7138/api/Agendamentos/Hora
             throw new Error(`Erro ao mostrar horarios`);
         }
 
-        const horariosPendentes = await response.json();//PEGA O RESULTADO DO FETCH
+        const horarios = await response.json();//PEGA O RESULTADO DO FETCH
+        
 
-        caixaHorariosPendentes.innerHTML = "";
+        //caixaHorariosPendentes.innerHTML = "";
 
-        if(horariosPendentes.length === 0){
-            console.log(dataPendente);
-            console.log(horariosPendentes);
-            caixaHorariosPendentes.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
+        if(horarios.length === 0){
+            console.log(horarios);
+            //caixaHorariosPendentes.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
             return;
         }
 
+        console.log(horarios[0].horarioInicio);
+
         //o loop para desenhar os botões dos horários
-        horariosPendentes.forEach(hora =>{
+        horarios.forEach(hora =>{
+            const itemHorarioPendente = document.createElement('div');
+            itemHorarioPendente.classList.add('caixa-horarios-pendentes');
+            //const horaFormatada = formatarHorario(hora); 
+            
+            const dataBanco = new Date(hora.horarioInicio);
+            console.log(dataBanco.toISOString().split('T')[0]);
 
-            const horaFormatada = formatarHorario(hora); 
+            //const dataFormatada = dataBanco.toString
+            if(inputDataPendente.value === dataBanco.toISOString().split('T')[0] && hora.statusAgendamento === "Pendente"){
 
-            const botao = document.createElement('button');
+            itemHorarioPendente.innerHTML += `
+                <div class="comeco-horario-pendente">
+                    <p class="id-agendamento">${hora.idAgendamento}</p>
+                    <p class="email-usuario">${hora.emailUsuario}</p>
+                    <p class="id-quadra">${hora.idQuadra}</p>
+                </div>
 
-            botao.innerText = horaFormatada; //escreve a hora, ex:08:00
-            botao.className = 'btn-horario';
+                <div class="meio-horario-pendente">
+                    <p class="dia-semana">${hora.diaSemana}</p>
+                    <p class="horario">${hora.horarioInicio} às ${hora.horarioFinal}</p>
+                    <p class="status">${hora.statusAgendamento}</p>
+                    <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
+                </div>
+            `;
+            }else if(inputDataPendente.value < dataBanco.toISOString().split('T')[0]){
+                itemHorarioPendente.style.display = 'none';
+               //lista.innerHTML = "<p>Nenhum horário pendente para esse dia. </p>";
+            }else{
+                itemHorarioPendente.style.display = 'none';
+                //lista.innerHTML = "<p>Nenhum horário pendente para esse dia. </p>";
+            }
 
-            botao.onclick = () => {
-                alert(`Você escolheu o dia ${data} às ${hora}!`);
+
+
+        
+
+            /*
+            itemHorarioPendente.onclick = () => {
+                alert(`Você escolheu o dia ${dataPendente} às ${hora}!`);
                 //reservarHorario(hora);
-            };
+            };*/
 
-            caixaHorariosPendentes.appendChild(botao);
+            lista.appendChild(itemHorarioPendente);
         });
 
     }catch(error){
@@ -142,7 +186,6 @@ async function reservarHorario(dataReserva){
         diaSemana: "quarta",
         statusAgendamento: "Pendente"
     }
-
 
     try{
         const response = await fetch(URL_API_RESERVAR_HORARIO, {
@@ -163,6 +206,34 @@ async function reservarHorario(dataReserva){
     }
     catch(error){
         console.log("Erro ao reservar horário", error)
+    }
+}
+
+async function aprovarHorario(idAgendamento){
+    const URL_API_ATUALIZAR_AGENDAMENTO = `https://localhost:7138/api/Agendamentos/AtualizarAgendamento?id=${idAgendamento}`;
+
+    const agendamentoAtualizado = {
+        statusAgendamento: "Aprovado"
+    }
+
+    try{
+        const response = await fetch(URL_API_ATUALIZAR_AGENDAMENTO, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(agendamentoAtualizado)
+        });
+
+        if(!response.ok){
+            throw new Error(`Erro ao aprovar horário`);
+        }
+
+        const agendamentoAprovado = await response.json();
+        alert(`Horário aprovado: ${agendamentoAprovado.horarioInicio}`);
+    }
+    catch(error){
+        console.log("Erro ao aprovar horário", error)
     }
 }
 

@@ -1,0 +1,66 @@
+/*SECTION AGENDAMENTO*/
+
+#container{
+    margin-top: 20px;
+    width: 200vh;
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    gap: 15px;
+    background-color: red;
+}
+
+
+#titulo input#input-data-pendente[type="date"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+}
+
+#titulo button#btn-buscar-pendente {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+}
+
+.caixa-horarios-pendentes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #334155;
+    width: 65vh;
+    height: 60vh;
+    background-color: #222B4C;
+    color: #fff;
+
+}
+
+
+
+
+
+/* Estilo para os botões de horário que o JS vai criar */
+.btn-horario {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    height: 45px;
+}
+
+.btn-horario:hover {
+    background-color: #45a049;
+}
