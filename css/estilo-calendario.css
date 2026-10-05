@@ -1,45 +1,78 @@
 /*SECTION AGENDAMENTO*/
+#container-agendamento{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    /*background-color: indianred;*/
+}
 
 #calendario{
-    height: 60vh;
+    height: 20vh;
+    width: 50%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    /*background-color: blue;*/
+    margin-top: 20px;
+    color: #fff;
+    /*background-color: gray;*/
 }
 
 #calendario input#input-data[type="date"] {
+    width: 200px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 6px;
     background-color: #f9f9f9;
-    font-size: 16px;
+    font-size: 20px;
     color: #333;
     outline: none;
 }
 
+#agendamento h3{
+    display: none;
+    color: rgb(235, 0, 0);
+    font-size: 25px;
+}
 
 /* Estilo para a caixa dos botões */
 #caixa-horarios {
     display: flex;
-    border: 1px solid black;
-    gap: 10px;
     flex-wrap: wrap;
     margin-top: 15px;
-    min-height: 200px;
+    width: 55vw;
+    height: 85vh;
+    background-image: url('../img/quadra-agendamento2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+#caixa-horarios img{
+    transform: rotate(90deg);
+    width: 100%;
+}
+
+#caixa-horarios .caixa-horarios-livres{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    padding: 50px;
+}
+
 
 /* Estilo para os botões de horário que o JS vai criar */
 .btn-horario {
-    padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    height: 45px;
+    height: 50px;   
 }
 
 .btn-horario:hover {

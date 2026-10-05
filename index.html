@@ -45,26 +45,32 @@
 
         <!--SECTION PARA APROVAR AGENDAMENTOS-->
         <section id="agendamento" style="display: none;">
-            <div id="calendario">
-                <h2>1. Escolha o dia do seu jogo</h2>
-                <!-- O campo de calendário padrão do HTML -->
-                <input type="date" id="input-data">
-
-                <h2>2. Horários Livres</h2>
+            <div id="container-agendamento">
+                <div id="calendario">
+                    <h2>1. Escolha o dia para o seu jogo</h2>
+                    <!-- O campo de calendário padrão do HTML -->
+                    <input type="date" id="input-data">
+                </div>
+                <h3 class="mg-erro">Esta data não está mais disponível</h3>
                 <!-- Uma caixa vazia onde o JS vai colocar os botões -->
                 <div id="caixa-horarios">
-                    <p>Selecione uma data acima para ver os horários.</p>
+                    <div class="caixa-horarios-livres">
+                        <p></p>
+                    </div>
                 </div>
             </div>
         </section><!--final section agendamento-->
+
 
         
         <section id="agendamentosPedentes" style="display: none;">
             <button type="button" id="btn-voltar" onclick="mostrarAgendamento()">Voltar</button>
             <div id="titulo">
                 <h1>Escolha o dia do agendamento</h1>
-                <input type="date" id="input-data-pendente">
-                <button type="button" id="btn-buscar-pendente" onclick="buscarHorariosPendentes()">Buscar</button>
+                <div id="data-pendente">
+                    <input type="date" id="input-data-pendente">
+                    <button type="button" id="btn-buscar-pendente" onclick="buscarHorariosPendentes()">Buscar</button>
+                </div>
             </div>
 
             <h2>Horários Pendentes para Aprovação</h2>
@@ -72,12 +78,29 @@
             <div id="container">
                 <div class="caixa-horarios-pendentes">
                     <div class="comeco-horario-pendente">
+                        <p>hora.emailUsuario</p>
+                    </div>
+
+                    <div class="meio-horario-pendente">
+                        <p>${hora.diaSemana}</p>
+                        <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
+                        <p>${hora.statusAgendamento}</p>
+                    </div>
+                </div>
+            </div>
+        </section><!--final section agendamentos pendentes-->
+
+
+        <section id="detalhes-agendamentosPedentes" style="display: none;">
+            <div id="container-detalhes">
+                <div class="caixa-horarios-pendentes-detalhes">
+                    <div class="comeco-horario-pendente-detalhes">
                         <p>hora.idAgendamento<p>
                         <p>hora.emailUsuario</p>
                         <p>hora.idQuadra</p>
                     </div>
 
-                    <div class="meio-horario-pendente">
+                    <div class="meio-horario-pendente-detalhes">
                         <p>${hora.diaSemana}</p>
                         <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
                         <p>${hora.statusAgendamento}</p>

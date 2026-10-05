@@ -5,7 +5,7 @@ const sectionAgendamentosPendentes = document.getElementById('agendamentosPedent
 
 //pega os valores da data que o usuario escolhe e os horários disponíveis
 const inputData = document.getElementById('input-data');
-const caixaHorarios = document.getElementById('caixa-horarios');
+const caixaHorariosLivres = document.querySelector('.caixa-horarios-livres');
 
 //pega os valores da data com horários pendentes para aprovação
 const inputDataPendente = document.getElementById('input-data-pendente');
@@ -57,12 +57,16 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
 
         const horariosLivres = await response.json();//PEGA O RESULTADO DO FETCH
 
-        caixaHorarios.innerHTML = "";
+        caixaHorariosLivres.innerHTML = "";
 
         if(horariosLivres.length === 0){
             console.log(data);
             console.log(horariosLivres);
-            caixaHorarios.innerHTML = "<p>Nenhum horário disponível para esse dia. </p>";
+            const msg = document.querySelector('.mg-erro');
+            msg.style.display = 'block'; //faz aparecer a mensagem de erro
+            setTimeout(() =>{//depois de três segundos desfaz a alteração
+            msg.style.display = "none";
+            }, 3000);
             return;
         }
 
@@ -81,7 +85,7 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
                 reservarHorario(hora);
             };
 
-            caixaHorarios.appendChild(botao);
+            caixaHorariosLivres.appendChild(botao);
         });
 
     }catch(error){
@@ -134,8 +138,18 @@ async function buscarHorariosPendentes(){
 
             //const dataFormatada = dataBanco.toString
             if(inputDataPendente.value === dataBanco.toISOString().split('T')[0] && hora.statusAgendamento === "Pendente"){
-
+            
+                itemHorarioPendente.innerHTML += `
+                    <div class="comeco-horario-pendente">
+                        <p class="id-agendamento">${hora.emailUsuario}</p>
+                        <p class="email-usuario">${hora.horarioInicio}</p>
+                        <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
+                        <button class="btn-detalhes" onclick="exibirDetalhes(${hora.idAgendamento})">Ver detalhes</button>
+                    </div>
+                `;
+                /*
             itemHorarioPendente.innerHTML += `
+            
                 <div class="comeco-horario-pendente">
                     <p class="id-agendamento">${hora.idAgendamento}</p>
                     <p class="email-usuario">${hora.emailUsuario}</p>
@@ -148,7 +162,7 @@ async function buscarHorariosPendentes(){
                     <p class="status">${hora.statusAgendamento}</p>
                     <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
                 </div>
-            `;
+            `;*/
             }else if(inputDataPendente.value < dataBanco.toISOString().split('T')[0]){
                 itemHorarioPendente.style.display = 'none';
                //lista.innerHTML = "<p>Nenhum horário pendente para esse dia. </p>";
@@ -157,16 +171,6 @@ async function buscarHorariosPendentes(){
                 //lista.innerHTML = "<p>Nenhum horário pendente para esse dia. </p>";
             }
 
-
-
-        
-
-            /*
-            itemHorarioPendente.onclick = () => {
-                alert(`Você escolheu o dia ${dataPendente} às ${hora}!`);
-                //reservarHorario(hora);
-            };*/
-
             lista.appendChild(itemHorarioPendente);
         });
 
@@ -174,6 +178,28 @@ async function buscarHorariosPendentes(){
         console.log("Erro na requisição: ", error);
     }
     
+}
+
+async function exibirDetalhes(id){
+    try{
+        const response = await fetch(`https://localhost:7138/api/Agendamentos/${id}`, {
+            method: 'GET',
+        });
+
+        if(!response.ok){
+            throw new Error(`Erro ao buscar detalhes do agendamento`);
+        }
+
+        const horarioPendente = await response.json();
+
+        sectionAgendamentosPendentes.style.display = 'none';
+
+
+
+
+    }catch(error){
+        console.log("Erro ao buscar detalhes do agendamento: ", error);
+    }
 }
 
 
@@ -208,6 +234,7 @@ async function reservarHorario(dataReserva){
         console.log("Erro ao reservar horário", error)
     }
 }
+
 
 async function aprovarHorario(idAgendamento){
     const URL_API_ATUALIZAR_AGENDAMENTO = `https://localhost:7138/api/Agendamentos/AtualizarAgendamento?id=${idAgendamento}`;
