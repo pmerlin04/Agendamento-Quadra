@@ -56,9 +56,13 @@
     padding: 5px;
     border-radius: 15px;
     border: 1px solid #334155;
-    width: 65vh;
-    height: 60vh;
+    width: 20vw;
+    height: 15vh;
     background-color: #222B4C;
     color: #fff;
 
+}
+
+.comeco-horario-pendente{
+    background-color: red;
 }

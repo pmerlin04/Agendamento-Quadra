@@ -1,0 +1,13 @@
+.caixa-horarios-pendentes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid #334155;
+    width: 65vh;
+    height: 60vh;
+    background-color: #222B4C;
+    color: #fff;
+
+}

@@ -1,5 +1,6 @@
 @import "estilo-calendario.css";
 @import "estilo-calendario-pendente.css";
+@import "estilo-detalhe-calendario-pendente.css";
 
 *{
     margin: 0;
