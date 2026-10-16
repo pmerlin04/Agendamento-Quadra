@@ -134,35 +134,42 @@ async function buscarHorariosPendentes(){
             //const horaFormatada = formatarHorario(hora); 
             
             const dataBanco = new Date(hora.horarioInicio);
+            const dataBancoFinal = new Date(hora.horarioFinal);
             console.log(dataBanco.toISOString().split('T')[0]);
+            const data = dataBanco.toISOString().split('T')[0]; //2026-10-09
 
-            //const dataFormatada = dataBanco.toString
+            const horaSeparadaInicio = dataBanco.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }); //12:00
+
+            const horaSeparadaFinal = dataBancoFinal.toLocaleTimeString('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }); //13:00
+
+
             if(inputDataPendente.value === dataBanco.toISOString().split('T')[0] && hora.statusAgendamento === "Pendente"){
             
                 itemHorarioPendente.innerHTML += `
                     <div class="comeco-horario-pendente">
-                        <p class="id-agendamento">${hora.emailUsuario}</p>
-                        <p class="email-usuario">${hora.horarioInicio}</p>
-                        <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
-                        <button class="btn-detalhes" onclick="exibirDetalhes(${hora.idAgendamento})">Ver detalhes</button>
+                        <p class="id-agendamento">${hora.idAgendamento}</p>
+                        <p class="email-agendamento">${hora.emailUsuario}</p>
+                        <p class="data-inicio">${data}</p>
+                        <p class="hora-inicio">${horaSeparadaInicio} - ${horaSeparadaFinal}</p>
+                        <p class="status-agendamento">${hora.statusAgendamento}</p>
+
+                        <div class ="buttons-horario-pendente">
+                            <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
+                            <button class="btn-cancelar" onclick="cancelarHorario(${hora.idAgendamento})">Cancelar</button>
+                        </div>
+
+                        <div class="form-cancelamento" style="display: none;">
+                            <input type="text" class="motivo-cancelamento" placeholder="Motivo do cancelamento" required>
+                            <input type="button" class="btn-enviar-motivo" value="Enviar" onclick="cancelarHorario(${hora.idAgendamento})">
+                        </div>
                     </div>
                 `;
-                /*
-            itemHorarioPendente.innerHTML += `
-            
-                <div class="comeco-horario-pendente">
-                    <p class="id-agendamento">${hora.idAgendamento}</p>
-                    <p class="email-usuario">${hora.emailUsuario}</p>
-                    <p class="id-quadra">${hora.idQuadra}</p>
-                </div>
-
-                <div class="meio-horario-pendente">
-                    <p class="dia-semana">${hora.diaSemana}</p>
-                    <p class="horario">${hora.horarioInicio} às ${hora.horarioFinal}</p>
-                    <p class="status">${hora.statusAgendamento}</p>
-                    <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
-                </div>
-            `;*/
             }else if(inputDataPendente.value < dataBanco.toISOString().split('T')[0]){
                 itemHorarioPendente.style.display = 'none';
                //lista.innerHTML = "<p>Nenhum horário pendente para esse dia. </p>";
@@ -180,27 +187,40 @@ async function buscarHorariosPendentes(){
     
 }
 
-async function exibirDetalhes(id){
+async function mostrarFormCancelamento(){
+    const formCancelamento = document.querySelector('.form-cancelamento');
+    formCancelamento.style.display = 'block';
+}
+
+async function cancelarHorario(id){
+
+    const valueCancelamento = document.querySelector('.motivo-cancelamento');
+    const agendamentoAtualizado = {
+        statusAgendamento: "Cancelado",
+        //motivoCancelamento: valueCancelamento.value
+    };
+
     try{
-        const response = await fetch(`https://localhost:7138/api/Agendamentos/${id}`, {
-            method: 'GET',
+        const response = await fetch(`https://localhost:7138/api/Agendamentos/AtualizarAgendamento?id=${id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(agendamentoAtualizado)
         });
 
         if(!response.ok){
-            throw new Error(`Erro ao buscar detalhes do agendamento`);
+            throw new Error(`Agendamento não encontrado`);
         }
 
-        const horarioPendente = await response.json();
-
-        sectionAgendamentosPendentes.style.display = 'none';
-
-
-
-
-    }catch(error){
-        console.log("Erro ao buscar detalhes do agendamento: ", error);
+        alert("Horário cancelado com sucesso!");
+        console.log(valueCancelamento.value);
+    }
+    catch(error){
+        console.log("Erro ao cancelar horário", error)
     }
 }
+
 
 
 async function reservarHorario(dataReserva){
