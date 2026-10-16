@@ -23,7 +23,7 @@ formLogin.addEventListener('submit', async function(e){
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                //'Authorization': `Bearer ${localStorage.getItem('token')}`
+                //'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
 
             body:JSON.stringify(login)
@@ -43,6 +43,7 @@ formLogin.addEventListener('submit', async function(e){
         localStorage.setItem('emailUsuario', JSON.stringify(login));
         console.log(localStorage.getItem('emailUsuario'));
         alert(`Bem vindo ${login.emailUsuario}`)
+        window.location.href = "index.html";
 
 
 

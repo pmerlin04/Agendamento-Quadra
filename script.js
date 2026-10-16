@@ -1,3 +1,16 @@
+console.log(localStorage.getItem('accessToken'));
+const accessToken = localStorage.getItem('accessToken');
+
+
+if(!accessToken){
+    window.location.href = "login.html";
+}
+
+function logout(){
+    localStorage.removeItem('accessToken');
+    window.location.href = "login.html";
+}
+
 //SECTIONS DA PÁGINA
 const sectionPrincipal = document.getElementById('principal');
 const sectionCalendario = document.getElementById('agendamento');
@@ -47,8 +60,9 @@ const API_URL_HORARIOS_DISPONIVEIS = `https://localhost:7138/api/Agendamentos/Ho
     try{
         const response = await fetch(API_URL_HORARIOS_DISPONIVEIS, {
             method: 'GET',
-            //'Content-Type': 'application/json'
-            //body: JSON.stringify()
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
         });
 
         if(!response.ok){
@@ -108,6 +122,9 @@ async function buscarHorariosPendentes(){
 
         const response = await fetch(API_URL_FINDALL, {
             method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            },
         });
 
         if(!response.ok){
@@ -204,7 +221,8 @@ async function cancelarHorario(id){
         const response = await fetch(`https://localhost:7138/api/Agendamentos/AtualizarAgendamento?id=${id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(agendamentoAtualizado)
         });
@@ -237,7 +255,8 @@ async function reservarHorario(dataReserva){
         const response = await fetch(URL_API_RESERVAR_HORARIO, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
 
             body: JSON.stringify(novoAgendamento)
@@ -267,7 +286,8 @@ async function aprovarHorario(idAgendamento){
         const response = await fetch(URL_API_ATUALIZAR_AGENDAMENTO, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(agendamentoAtualizado)
         });
