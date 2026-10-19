@@ -8,7 +8,7 @@ if(!accessToken){
 
 function logout(){
     localStorage.removeItem('accessToken');
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 //SECTIONS DA PÁGINA

@@ -44,7 +44,7 @@ formLogin.addEventListener('submit', async function(e){
         localStorage.setItem('email', inputEmail);
         console.log(localStorage.getItem('email'));
         alert(`Bem vindo ${login.emailUsuario}`)
-        window.location.href = "inicial.html";
+        window.location.href = "inicial.html#principal";
 
 
 
