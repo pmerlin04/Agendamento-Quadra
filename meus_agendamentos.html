@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/estilo-meus-agendamentos.css">
+</head>
+<body>
+     <header class="cabecalho">
+       <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
+        <nav class="cabecalho-menu">
+            <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
+            <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+            <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
+            <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+        </nav>
+
+    </header>
+    
+    <main class="corpo">
+
+        <section id="meus-agendamentos">
+
+            <div id="titulo">
+                <h1>Escolha o dia do agendamento</h1>
+                <div id="data-pendente">
+                    <input type="date" id="input-data-pendente">
+                    <button type="button" id="btn-buscar-pendente" onclick="buscarHorariosPendentes()">Buscar</button>
+                </div>
+
+                <h2 class="titulo-horarios-pendentes">Horários Pendentes para Aprovação</h2>
+            </div>
+                
+            <div id="container">
+                <div class="caixa-horarios-pendentes">
+                    <div class="comeco-horario-pendente">
+                        <p>hora.emailUsuario</p>
+                    </div>
+
+                    <div class="meio-horario-pendente">
+                        <p>${hora.diaSemana}</p>
+                        <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
+                        <p>${hora.statusAgendamento}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

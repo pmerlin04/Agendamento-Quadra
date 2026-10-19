@@ -37,6 +37,10 @@ function mostrarAgendamentosPendentes(){
     sectionPrincipal.style.display = 'none';
 }
 
+function mostrarMeusAgendamentos (){
+    window.location.href = "meus_agendamentos.html";
+}
+
 
 
 //function pra escolher a data com horarios disponiveis
