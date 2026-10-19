@@ -1,108 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/estilo-index.css">
+    <link rel="stylesheet" href="css/estilo-login.css">
 </head>
 <body>
-     <header class="cabecalho">
-       <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
-        <nav class="cabecalho-menu">
-            <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
-            <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
-            <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
-            <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
-        </nav>
-    </header>
+    <div id="container">
+        <div class="box">
+            <img src="" alt="logo-agendamento">
+            <h1>Acesse a tela de agendamento</h1>
 
-    <main class="corpo">
+            <form action="" id="loginForm">
 
-        <!--SECTION PARA FAZER AGENDAMENTO-->
-        <section id="principal" style="display: block;">
-
-            <div class="container">
-                <div class="apresentacao">
-                    <div class="titulo">
-                        <h1>Escolha o horário e marque o seu futebol com os amigos.</h1>
-                        <button type="button" id="btn-agendar" onclick="mostrarAgendamento()">Agendar quadra</button>
-                    </div>
-                </div>
-                <div class="ilustracao">
-                    <img src="img/quadra.jpeg" alt="quadras" id="img-quadra">
-                </div>
-            </div>
-
-        </section><!--final section principal-->
-
-        <!--SECTION PARA APROVAR AGENDAMENTOS-->
-        <section id="agendamento" style="display: none;">
-            <div id="container-agendamento">
-                <div id="calendario">
-                    <h2>1. Escolha o dia para o seu jogo</h2>
-                    <!-- O campo de calendário padrão do HTML -->
-                    <input type="date" id="input-data">
-                </div>
-                <h3 class="mg-erro">Esta data não está mais disponível</h3>
-                <!-- Uma caixa vazia onde o JS vai colocar os botões -->
-                <div id="caixa-horarios">
-                    <div class="caixa-horarios-livres">
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </section><!--final section agendamento-->
-
-
-        
-        <section id="agendamentosPedentes" style="display: none;">
-            <button type="button" id="btn-voltar" onclick="mostrarAgendamento()">Voltar</button>
-            <div id="titulo">
-                <h1>Escolha o dia do agendamento</h1>
-                <div id="data-pendente">
-                    <input type="date" id="input-data-pendente">
-                    <button type="button" id="btn-buscar-pendente" onclick="buscarHorariosPendentes()">Buscar</button>
+                <div class="input-login">
+                    <label for="email">Endereço de e-mail</label>
+                    <input type="email" name="email" id="email" placeholder="joao.pedro@icom.com.br" required>
                 </div>
 
-                <h2 class="titulo-horarios-pendentes">Horários Pendentes para Aprovação</h2>
-            </div>
+                <div class="input-login">
+                    <label for="senha">Senha</label>
+                    <input type="password" name="senha" id="senha" placeholder="Senha" required>
+                </div>
                 
-            <div id="container">
-                <div class="caixa-horarios-pendentes">
-                    <div class="comeco-horario-pendente">
-                        <p>hora.emailUsuario</p>
-                    </div>
-
-                    <div class="meio-horario-pendente">
-                        <p>${hora.diaSemana}</p>
-                        <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
-                        <p>${hora.statusAgendamento}</p>
-                    </div>
+                <div class="input-login">
+                    <button type="submit" id="logar">Acessar</button>
                 </div>
-            </div>
-        </section><!--final section agendamentos pendentes-->
-
-
-        <section id="detalhes-agendamentosPedentes" style="display: none;">
-            <div id="container-detalhes">
-                <div class="caixa-horarios-pendentes-detalhes">
-                    <div class="comeco-horario-pendente-detalhes">
-                        <p>hora.idAgendamento<p>
-                        <p>hora.emailUsuario</p>
-                        <p>hora.idQuadra</p>
-                    </div>
-
-                    <div class="meio-horario-pendente-detalhes">
-                        <p>${hora.diaSemana}</p>
-                        <p>${hora.horarioInicio} às ${hora.horarioFinal}</p>
-                        <p>${hora.statusAgendamento}</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-    <script src="script.js"></script>
+            </form>
+        </div>
+    </div>
+    
+    <script src="login.js"></script>
 </body>
 </html>

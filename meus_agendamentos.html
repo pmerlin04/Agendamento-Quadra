@@ -9,12 +9,36 @@
 <body>
      <header class="cabecalho">
        <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
+
+
         <nav class="cabecalho-menu">
-            <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
-            <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
-            <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
-            <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+           
         </nav>
+
+       <script>
+        const emailLogado = localStorage.getItem('email');
+        console.log(emailLogado);
+        const conteudoCabecalho = document.querySelector('.cabecalho-menu');
+
+        if(emailLogado == "pedro@icom.com.br"){
+            conteudoCabecalho.innerHTML = `
+
+                <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
+                <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+                <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
+                <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+            
+            `;
+        }else{
+            conteudoCabecalho.innerHTML = `
+                <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+                <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
+                <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+            `;
+        }
+
+       </script>
+       
 
     </header>
     
@@ -47,5 +71,7 @@
             </div>
         </section>
     </main>
+
+    <script src="meus_agendamentos.js"></script>
 </body>
 </html>
