@@ -1,5 +1,7 @@
 console.log(localStorage.getItem('accessToken'));
 const accessToken = localStorage.getItem('accessToken');
+const emailUsuario = localStorage.getItem('email');
+console.log(emailUsuario);
 
 
 if(!accessToken){
@@ -162,7 +164,7 @@ async function buscarHorariosPendentes(){
             const horaSeparadaInicio = dataBanco.toLocaleTimeString('pt-BR', {
                 hour: '2-digit',
                 minute: '2-digit'
-            }); //12:00
+            }); //12:00 
 
             const horaSeparadaFinal = dataBancoFinal.toLocaleTimeString('pt-BR', {
                 hour: '2-digit',
@@ -176,19 +178,17 @@ async function buscarHorariosPendentes(){
                     <div class="comeco-horario-pendente">
                         <p class="id-agendamento">${hora.idAgendamento}</p>
                         <p class="email-agendamento">${hora.emailUsuario}</p>
-                        <p class="data-inicio">${data}</p>
-                        <p class="hora-inicio">${horaSeparadaInicio} - ${horaSeparadaFinal}</p>
+                    </div>
+
+                    <div class="meio-horario-pendente">
+                        <p class="data">${data}</p>
+                        <p class="horario">${horaSeparadaInicio} - ${horaSeparadaFinal}</p>
                         <p class="status-agendamento">${hora.statusAgendamento}</p>
+                    </div>
 
-                        <div class ="buttons-horario-pendente">
-                            <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
-                            <button class="btn-cancelar" onclick="cancelarHorario(${hora.idAgendamento})">Cancelar</button>
-                        </div>
-
-                        <div class="form-cancelamento" style="display: none;">
-                            <input type="text" class="motivo-cancelamento" placeholder="Motivo do cancelamento" required>
-                            <input type="button" class="btn-enviar-motivo" value="Enviar" onclick="cancelarHorario(${hora.idAgendamento})">
-                        </div>
+                    <div class="final-horario-pendente">
+                        <button class="btn-aprovar" onclick="aprovarHorario(${hora.idAgendamento})">Aprovar</button>
+                        <button class="btn-cancelar" onclick="cancelarHorario(${hora.idAgendamento})">Cancelar</button>
                     </div>
                 `;
             }else if(inputDataPendente.value < dataBanco.toISOString().split('T')[0]){
@@ -249,7 +249,7 @@ async function reservarHorario(dataReserva){
     const URL_API_RESERVAR_HORARIO = `https://localhost:7138/api/Agendamentos/ReservarAgendamento?data=${dataReserva}&id=1`;
 
     const novoAgendamento = {
-        emailUsuario: "pedromerlin2004@gmail.com",
+        emailUsuario: emailUsuario,
         idQuadra: 1,
         diaSemana: "quarta",
         statusAgendamento: "Pendente"

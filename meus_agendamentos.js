@@ -1,6 +1,6 @@
-const accessToken = localStorage('accessToken');
-const email = localStorage('email');
-console.log("oi", email);
+const accessToken = localStorage.getItem('accessToken');
+const email = localStorage.getItem('email');
+console.log(accessToken);
 
 if(!accessToken){
     window.location.href = "index.html";
@@ -38,24 +38,65 @@ async function carregarMeusAgendamentos(){
         }
 
         const meusAgendamentos = await response.json();
-        console.log(meusAgendamentos);
+        //console.log(meusAgendamentos);
 
         exibirMeusAgendamentos(meusAgendamentos);
 
 
     }catch(erro){
-        console.log("Erro ao buscar os agendamentos");
+        console.log("Erro ao buscar os agendamentos", erro);
     }
 }
 
-async function exibirMeusAgendamentos(meusAgendamentos){
-    const lista = document.getElementById('container');
+function exibirMeusAgendamentos(meusAgendamentos){
+    const lista = document.getElementById('meu-container');
     lista.innerHTML = '';
+    console.log(email);
+
 
     meusAgendamentos.forEach(agendamento => {
-        if(meusAgendamentos.emailUsuario == email){
-            
+
+        const dataBanco = new Date(agendamento.horarioInicio);
+        const dataBancoFinal = new Date(agendamento.horarioFinal);
+        //console.log(dataBanco.toISOString().split('T')[0]);
+        const data = dataBanco.toISOString().split('T')[0]; //2026-10-09
+
+
+        const horaSeparadaInicio = dataBanco.toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        }); //12:00 
+
+        const horaSeparadaFinal = dataBancoFinal.toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        }); //13:00
+
+
+        if(agendamento.emailUsuario == email){
+            const caixaHorarios = document.createElement('div');
+            caixaHorarios.classList.add('caixa-meus-horarios');
+
+            caixaHorarios.innerHTML = `
+                <div class="comeco-horario">
+                    <p class="id-agendamento">ID - ${agendamento.idAgendamento}</p>
+                    <p class="email-solicitante">${agendamento.emailUsuario}</p>
+                </div>
+
+                <div class="meio-horario">
+                    <p class= "data">${data}</p>
+                    <p class="horario">${horaSeparadaInicio} às ${horaSeparadaFinal}</p>
+                <div>
+
+                <div class="final-horario">
+                    <p class="status">${agendamento.statusAgendamento}<p>
+                <div>
+                
+            `;
+
+        lista.appendChild(caixaHorarios);
         }
+
     });
 
 }

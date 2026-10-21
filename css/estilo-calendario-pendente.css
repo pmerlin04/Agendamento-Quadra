@@ -78,37 +78,69 @@ h2.titulo-horarios-pendentes{
 
 
 .caixa-horarios-pendentes{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    height: 40vh;
+    width: 400px;
     padding: 5px;
-    border-radius: 15px;
-    border: 1px solid #334155;
-    width: 20vw;
-    height: 22vh;
-    margin-left: 50px;
-    background-color: #1b3d1a;
-    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    border-radius: 6px;
+    font-size: 20px;
+    border: 3px solid #183f17;
 
 }
 
 .comeco-horario-pendente{
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-size: 17px;
-    gap: 5px;
-    width: 270px;
-    height: 150px;
-    background-color: red;
+    justify-content: space-between;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 20px;
+    /*background-color: brown;*/
+}
+
+.comeco-horario-pendente p.id-agendamento{
+    width: 80px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #183f17;
+    background-color: #183f175c;
 }
 
 .comeco-horario-pendente p.email-agendamento{
-    font-weight: 600;
+    width: 250px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #183f17;
+    background-color: #183f175c;
+}
+
+.meio-horario-pendente{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:45px;
+    height: 150px;
+    font-size: 30px;
+    /*background-color: blueviolet;*/
+}
+
+.meio-horario-pendente p.data:hover, p.horario:hover{
+    color: #a6a6a6;
+    cursor: pointer;
+}
+
+.final-horario-pendente{
+    display: flex;
+    width: 90vw;
+    margin-top: 50px;
+    width: 160px;
+    border-radius: 6px;
+    background-color: black;
 }
 
 
-.comeco-horario-pendente button.btn-aprovar, button.btn-cancelar{
+.final-horario-pendente button.btn-aprovar, button.btn-cancelar{
     width: 120px;
     height: 30px;
     border-radius: 6px;
@@ -117,13 +149,13 @@ h2.titulo-horarios-pendentes{
     cursor: pointer;
 }
 
-.comeco-horario-pendente button.btn-aprovar:hover{
+.final-horario-pendente button.btn-aprovar:hover{
     color: #fff;
     background-color: #1b6e1a;
     box-shadow: 0 0 15px rgba(0, 164, 38, 0.8);
 }
 
-.comeco-horario-pendente button.btn-cancelar:hover{
+.final-horario-pendente button.btn-cancelar:hover{
     color: #fff;
     background-color: #c00;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);

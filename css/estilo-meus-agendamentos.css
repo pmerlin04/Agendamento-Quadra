@@ -1,2 +1,81 @@
-@import "estilo-calendario-pendente.css";
 @import "estilo-index.css";
+
+h2{
+    font-size: 35px;
+    text-align: center;
+}
+
+#meu-container{
+    margin-top: 20px;
+    margin-left: 30px;
+    width: 95vw;
+    display: flex;
+    flex-wrap: wrap;
+    border: none;
+    gap: 15px;
+    padding-left: 70px;
+    /*background-color: gray;*/
+}
+
+.caixa-meus-horarios{
+    height: 40vh;
+    width: 400px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    border-radius: 6px;
+    font-size: 20px;
+    border: 3px solid #183f17;
+}
+
+.comeco-horario{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    font-weight: 600;
+    font-size: 20px;
+    /*background-color: brown;*/
+}
+
+.comeco-horario p.id-agendamento{
+    width: 80px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #183f17;
+    background-color: #183f175c;
+}
+
+.comeco-horario p.email-solicitante{
+    width: 250px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #183f17;
+    background-color: #183f175c;
+}
+
+.meio-horario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:45px;
+    height: 150px;
+    font-size: 30px;
+    /*background-color: blueviolet;*/
+}
+
+.meio-horario p.data:hover, p.horario:hover{
+    color: #a6a6a6;
+    cursor: pointer;
+}
+
+.final-horario{
+    margin-top: 50px;
+    width: 160px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #183f17;
+    background-color: #183f175c;
+}
+
+
