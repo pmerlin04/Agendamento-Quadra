@@ -7,14 +7,37 @@
     <link rel="stylesheet" href="css/estilo-index.css">
 </head>
 <body>
-     <header class="cabecalho">
-       <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
-        <nav class="cabecalho-menu">
-            <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
-            <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
-            <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
-            <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
-        </nav>
+    <header class="cabecalho">
+       <script>
+        const emailLogado = localStorage.getItem('email');
+        console.log(emailLogado);
+
+        const cabecalho = document.querySelector('.cabecalho');
+        cabecalho.innerHTML = '';
+        const conteudoCabecalho = document.querySelector('.cabecalho-menu');
+
+        if(emailLogado == "pedro@icom.com.br"){
+            cabecalho.innerHTML = `
+
+            <a href="#"><img src="img/Logo do Helpdesk do Grupo Icom.png"></a>
+            <nav class="cabecalho-menu">
+                <button onclick="mostrarAgendamentosPendentes()" class="cabecalho-menu-item">Agendamentos pendentes</button>
+                <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+                <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
+                <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+            </nav>
+            
+            `;
+        }else{
+            cabecalho.innerHTML = `
+                <nav class="cabecalho-menu">
+                    <button onclick="mostrarMeusAgendamentos()" id="meusChamados" class="cabecalho-menu-item">Meus agendamentos</button>
+                    <button onclick="mostrarAgendamento()" id="agendar" class="cabecalho-menu-item">Agendar quadra</button>
+                    <button onclick="logout()" id="entrar" class="cabecalho-menu-item">Sair</button>
+                </nav>
+            `;
+        }
+       </script>
     </header>
 
     <main class="corpo">
@@ -57,7 +80,7 @@
 
         
         <section id="agendamentosPedentes" style="display: none;">
-            <button type="button" id="btn-voltar" onclick="mostrarAgendamento()">Voltar</button>
+            <button type="button" id="btn-voltar" onclick="voltarPrincipal()">Voltar</button>
             <div id="titulo">
                 <h1>Escolha o dia do agendamento</h1>
                 <div id="data-pendente">

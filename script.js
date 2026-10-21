@@ -43,6 +43,12 @@ function mostrarMeusAgendamentos (){
     window.location.href = "meus_agendamentos.html";
 }
 
+function voltarPrincipal(){
+    sectionPrincipal.style.display = 'block';
+    sectionCalendario.style.display = 'none';
+    sectionAgendamentosPendentes.style.display = 'none';
+}
+
 
 
 //function pra escolher a data com horarios disponiveis
@@ -176,13 +182,13 @@ async function buscarHorariosPendentes(){
             
                 itemHorarioPendente.innerHTML += `
                     <div class="comeco-horario-pendente">
-                        <p class="id-agendamento">${hora.idAgendamento}</p>
+                        <p class="id-agendamento">ID - ${hora.idAgendamento}</p>
                         <p class="email-agendamento">${hora.emailUsuario}</p>
                     </div>
 
                     <div class="meio-horario-pendente">
                         <p class="data">${data}</p>
-                        <p class="horario">${horaSeparadaInicio} - ${horaSeparadaFinal}</p>
+                    <p class="horario">${horaSeparadaInicio} às ${horaSeparadaFinal}</p>
                         <p class="status-agendamento">${hora.statusAgendamento}</p>
                     </div>
 

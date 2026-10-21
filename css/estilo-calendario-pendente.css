@@ -72,7 +72,7 @@ h2.titulo-horarios-pendentes{
     flex-wrap: wrap;
     border: none;
     gap: 15px;
-    background-color: red;
+    padding-left: 60px;
 }
 
 
@@ -132,11 +132,11 @@ h2.titulo-horarios-pendentes{
 
 .final-horario-pendente{
     display: flex;
-    width: 90vw;
-    margin-top: 50px;
-    width: 160px;
+    width: 300px;
+    margin-top: 40px;
+    margin-left: 16%;
+    gap: 10px;
     border-radius: 6px;
-    background-color: black;
 }
 
 
@@ -145,8 +145,11 @@ h2.titulo-horarios-pendentes{
     height: 30px;
     border-radius: 6px;
     border: none;
-    font-size: 15px;
+    font-size: 17px;
     cursor: pointer;
+    border: 1px solid #183f17;
+    color: #fff;
+    background-color: transparent;
 }
 
 .final-horario-pendente button.btn-aprovar:hover{
@@ -157,6 +160,7 @@ h2.titulo-horarios-pendentes{
 
 .final-horario-pendente button.btn-cancelar:hover{
     color: #fff;
+    border: #c00;
     background-color: #c00;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
