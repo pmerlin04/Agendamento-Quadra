@@ -16,6 +16,10 @@ function mostrarAgendamentosPendentes(){
 
 }
 
+function mostrarAgendamento(){
+    window.location.href = "inicial.html#agendamento";
+}
+
 const API_URL_FINDALL = 'https://localhost:7138/api/Agendamentos';
 async function carregarMeusAgendamentos(){
 
